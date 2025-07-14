@@ -22,6 +22,32 @@ Monster::Monster(const char* name, int hp, int attack, int defense, Type type, T
 	}
 }
 
+Monster::Monster(const Monster& monster) {
+	
+	if (monster.name != nullptr) {
+		name = new char[strlen(monster.name) + 1];
+		strcpy_s(name, strlen(monster.name) + 1, monster.name);
+	}
+	else {
+		name = nullptr;
+	}
+
+	hp = monster.hp;
+	attack = monster.attack;
+	defense = monster.defense;
+	type = monster.type;
+
+	for (int i = 0; i < sizeof(monster.strongType) / sizeof(Type); i++)
+	{
+		strongType[i] = monster.strongType[i];
+	}
+
+	for (int i = 0; i < sizeof(monster.weakType) / sizeof(Type); i++)
+	{
+		weakType[i] = monster.weakType[i];
+	}
+}
+
 void Monster::setName(const char* name)
 {
 	if (this->name != nullptr)
@@ -58,10 +84,19 @@ void Monster::onDamaged(int damage)
 	}
 }
 
+bool Monster::isDead()
+{
+	if (this->hp <= 0)
+	{
+		return true;
+	}
+	return false;
+}
+
 void Monster::onAttack(Monster *monster)
 {
 	Type onAttackedtype = monster->getType();
-	int damage = monster->getAttack();
+	int damage = this->attack;
 
 	cout << this->name << "(" << TypeToString[this->type] << ") " << "Attacks " << monster->name << "(" << TypeToString[monster->getType()] << ")" << endl;
 
