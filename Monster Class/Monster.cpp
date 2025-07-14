@@ -3,13 +3,23 @@
 #include <iostream>
 using namespace std;
 
-Monster::Monster(const char* name, int hp, int attack, int defense, Type type)
+Monster::Monster(const char* name, int hp, int attack, int defense, Type type, Type strong[], Type weak[])
 {
 	setName(name);
 	this->hp = hp;
 	this->attack = attack;
 	this->defense = defense;
 	this->type = type;
+
+	for (int i = 0; i < sizeof(*strong) / sizeof(Type); i++)
+	{
+		strongType[i] = strong[i];
+	}
+
+	for (int i = 0; i < sizeof(*weak) / sizeof(Type); i++)
+	{
+		weakType[i] = weak[i];
+	}
 }
 
 void Monster::setName(const char* name)
@@ -37,6 +47,7 @@ void Monster::onDamaged(int damage)
 	cout << this->name << " Got Damaged: " << damage << endl;
 
 	cout << this->name;
+
 	if (this->hp <= 0)
 	{
 		cout << " Died" << endl;
@@ -54,8 +65,34 @@ void Monster::onAttack(Monster *monster)
 
 	cout << this->name << "(" << TypeToString[this->type] << ") " << "Attacks " << monster->name << "(" << TypeToString[monster->getType()] << ")" << endl;
 
-	float damageRate = type_damage_table[this->type][onAttackedtype];
-	monster->onDamaged(damage * damageRate);
+	damage *= processDamageRate(monster->getType());
+	monster->onDamaged(damage);
+}
+
+float Monster::processDamageRate(Type type)
+{
+	float multiplier = 1.0f;
+
+	int strongLen = sizeof(*strongType) / sizeof(Type);
+	int weakLen = sizeof(*weakType) / sizeof(Type);
+
+	for (int i = 0; i < strongLen; i++)
+	{
+		if (strongType[i] == type)
+		{
+			multiplier = 1.5f;
+		}
+	}
+
+	for (int i = 0; i < weakLen; i++)
+	{
+		if (weakType[i] == type)
+		{
+			multiplier = 0.5f;
+		}
+	}
+
+	return multiplier;
 }
 
 Monster::~Monster()
