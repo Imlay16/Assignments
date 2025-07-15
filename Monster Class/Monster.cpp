@@ -37,12 +37,12 @@ Monster::Monster(const Monster& monster) {
 	defense = monster.defense;
 	type = monster.type;
 
-	for (int i = 0; i < sizeof(monster.strongType) / sizeof(Type); i++)
+	for (int i = 0; i < TYPE_COUNT; i++)
 	{
 		strongType[i] = monster.strongType[i];
 	}
 
-	for (int i = 0; i < sizeof(monster.weakType) / sizeof(Type); i++)
+	for (int i = 0; i < TYPE_COUNT; i++)
 	{
 		weakType[i] = monster.weakType[i];
 	}
@@ -108,22 +108,21 @@ float Monster::processDamageRate(Type type)
 {
 	float multiplier = 1.0f;
 
-	int strongLen = sizeof(*strongType) / sizeof(Type);
-	int weakLen = sizeof(*weakType) / sizeof(Type);
-
-	for (int i = 0; i < strongLen; i++)
+	for (int i = 0; i < TYPE_COUNT; i++)
 	{
 		if (strongType[i] == type)
 		{
 			multiplier = 1.5f;
+			return multiplier;
 		}
 	}
 
-	for (int i = 0; i < weakLen; i++)
+	for (int i = 0; i < TYPE_COUNT; i++)
 	{
 		if (weakType[i] == type)
 		{
 			multiplier = 0.5f;
+			return multiplier;
 		}
 	}
 

@@ -1,5 +1,4 @@
 #pragma once
-
 #define NAME_LEN 32
 
 enum Type
@@ -21,6 +20,7 @@ private:
 	int attack;
 	int defense;
 	Type type;
+
 	Type strongType[TYPE_COUNT];
 	Type weakType[TYPE_COUNT];
 
@@ -32,11 +32,12 @@ public:
 	Monster(const Monster& monster);
 	int getAttack() const { return attack; }
 	int getHp() const { return hp; }
-	const char* getName() const { return name; }
 	Type getType() const { return type; }
+	const char* getName() const { return name; }
 	bool isDead();
 	void onAttack(Monster* monster);
 	float processDamageRate(Type type);
 	~Monster();
 };
+
 
