@@ -22,7 +22,7 @@ public:
 	~Arena();
 
 	void addMonster(const Monster&);
-	int getTopHp();
+	Monster* getTopHp();
 	void goToRound();
 };
 

@@ -3,13 +3,30 @@
 
 int main()
 {
-	DynamicArray arr;
+	DynamicArray<int> arr;
 
-	cout << "capacity: " << arr.getCapacity() << endl;
-	cout << "size: " << arr.getSize() << endl;	
+	//cout << "size: " << arr.getSize() << endl;
+	//cout << "capacity: " << arr.getCapacity() << endl;
 
-	arr.add(1);
-	arr.add(2);
+	//arr.add(1);
+	//arr.printAllData();
 
-	arr.printAllData();
+	//cout << "size: " << arr.getSize() << endl;
+	//cout << "capacity: " << arr.getCapacity() << endl;
+
+	//arr.add(2);
+	//arr.printAllData();
+
+	//cout << "size: " << arr.getSize() << endl;
+	//cout << "capacity: " << arr.getCapacity() << endl;
+
+	//arr.add(3);
+	//arr.printAllData();
+
+	//cout << "size: " << arr.getSize() << endl;
+	//cout << "capacity: " << arr.getCapacity() << endl;
+
+	DynamicArray<bool> v;
+
+	return 0;
 }

@@ -24,19 +24,22 @@ void Arena::addMonster(const Monster& monster)
 	}
 }
 
-int Arena::getTopHp()
+Monster* Arena::getTopHp()
 {
-	int maxHp = 0;
-	for (int i = 0; i < monsterCount; i++)
+	Monster* monster = monsters[0];
+	int maxHp = monsters[0]->getHp();
+
+	for (int i = 1; i < monsterCount; i++)
 	{
 		int curHp = monsters[i]->getHp();
 
 		if (maxHp < curHp)
 		{
 			maxHp = curHp;
+			monster = monsters[i];
 		}
 	}
-	return maxHp;
+	return monster;
 }
 
 void Arena::goToRound()
@@ -71,6 +74,6 @@ void Arena::goToRound()
 		}
 	}
 
-	cout << "Top HP: " << getTopHp() << endl;
+	cout << "Top HP Monster: " << getTopHp()->getName() << endl;
 }
 
