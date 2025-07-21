@@ -1,32 +1,37 @@
 
 #include "DynamicArray.h"
 
+class Person
+{
+private:
+	string name;
+	int id;
+
+public:
+	Person() = default; 
+	Person(string name, int id) : name(name), id(id) { }
+
+	string toString() const {
+		return "Name: " + name;
+	}
+};
+
 int main()
 {
-	DynamicArray<int> arr;
+	Person p1("John", 4);
+	Person p2("Alice", 2);
+	Person p3("Doom", 1);
 
-	//cout << "size: " << arr.getSize() << endl;
-	//cout << "capacity: " << arr.getCapacity() << endl;
+	DynamicArray<Person> p;
 
-	//arr.add(1);
-	//arr.printAllData();
+	p.add(p1);
+	p.add(p2);
+	p.add(p3);
 
-	//cout << "size: " << arr.getSize() << endl;
-	//cout << "capacity: " << arr.getCapacity() << endl;
+	cout << "size: " << p.getSize() << endl;
+	cout << "capacity: " << p.getCapacity() << endl;
 
-	//arr.add(2);
-	//arr.printAllData();
-
-	//cout << "size: " << arr.getSize() << endl;
-	//cout << "capacity: " << arr.getCapacity() << endl;
-
-	//arr.add(3);
-	//arr.printAllData();
-
-	//cout << "size: " << arr.getSize() << endl;
-	//cout << "capacity: " << arr.getCapacity() << endl;
-
-	DynamicArray<bool> v;
+	p.printAllData();
 
 	return 0;
 }

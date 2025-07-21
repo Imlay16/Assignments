@@ -17,7 +17,10 @@ private:
 		capacity *= 2;
 		T* newArr = new T[capacity];
 
-		memcpy_s(newArr, capacity * sizeof(T), arr, size * sizeof(T));
+		for (int i = 0; i < size; i++)
+		{
+			newArr[i] = arr[i];
+		}
 
 		delete[] arr;
 		arr = newArr;
@@ -147,7 +150,7 @@ public:
 	{
 		for (int i = 0; i < size; i++)
 		{
-			cout << "data [" << i << "]: " << arr[i] << endl;
+			cout << "data [" << i << "]: " << arr[i].toString() << endl;
 		}
 		cout << endl;
 	}
