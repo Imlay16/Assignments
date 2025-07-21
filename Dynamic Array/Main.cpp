@@ -11,6 +11,8 @@ public:
 	Person() = default; 
 	Person(string name, int id) : name(name), id(id) { }
 
+	int getId() { return id; }
+
 	string toString() const {
 		return "Name: " + name;
 	}
@@ -21,6 +23,8 @@ int main()
 	Person p1("John", 4);
 	Person p2("Alice", 2);
 	Person p3("Doom", 1);
+	Person p4("Bradley", 5);
+
 
 	DynamicArray<Person> p;
 
@@ -31,7 +35,9 @@ int main()
 	cout << "size: " << p.getSize() << endl;
 	cout << "capacity: " << p.getCapacity() << endl;
 
-	p.printAllData();
+	int result = p.find(p4, [](auto val, auto findVal) { return val.getId() == findVal.getId(); });
+
+	cout << result << endl;
 
 	return 0;
 }
