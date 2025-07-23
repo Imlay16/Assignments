@@ -218,19 +218,19 @@ public:
 		}
 	}
 
+	bool getIndex(int index)
+	{
+
+	}
+
+	void set(int index, const bool& value)
+	{
+
+	}
+
 	void remove(const bool& value)
 	{
-		// 이건 그냥 맨 뒤에 있는 놈들 추가..?
-	}
-
-	void insert(const bool& findValue, const bool& value)
-	{
-
-	}
-
-	int find(const bool& value)
-	{
-		
+		// 이건 그냥 맨 뒤에 있는 놈들 삭제..?
 	}
 
 	void printAllData()
