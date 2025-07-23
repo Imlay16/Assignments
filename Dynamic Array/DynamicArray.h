@@ -164,30 +164,33 @@ private:
 	size_t boolSize = 0;
 	size_t capacity = 1;
 
-	unsigned char* boolArr;
+	unsigned char* arr;
 
 	void reAllocate()
 	{
 		capacity++;
 		unsigned char* newArr = new unsigned char[capacity];
 
-		memcpy_s(newArr, capacity * sizeof(char), boolArr, size * sizeof(char));
+		for (int i = 0; i < size; i++)
+		{
+			newArr[i] = arr[i];
+		}
 
-		delete[] boolArr;
-		boolArr = newArr;
+		delete[] arr;
+		arr = newArr;
 	}
 
 public:
 	DynamicArray()
 	{
-		boolArr = new unsigned char[capacity];
+		arr = new unsigned char[capacity];
 	}
 
 	~DynamicArray()
 	{
-		if (boolArr != nullptr)
+		if (arr != nullptr)
 		{
-			delete[] boolArr;
+			delete[] arr;
 		}
 	}
 
@@ -199,9 +202,7 @@ public:
 		if (size == capacity)
 		{
 			reAllocate();
-		}
-
-
+		}		
 	}
 
 	void remove(const bool& value)
