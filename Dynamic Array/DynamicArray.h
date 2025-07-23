@@ -171,7 +171,10 @@ private:
 		capacity++;
 		unsigned char* newArr = new unsigned char[capacity];
 
-		memcpy_s(newArr, capacity * sizeof(char), boolArr, size * sizeof(char));
+		for (int i = 0; i < size; i++)
+		{
+			newArr[i] = boolArr[i];
+		}
 
 		delete[] boolArr;
 		boolArr = newArr;
@@ -201,12 +204,23 @@ public:
 			reAllocate();
 		}
 
+		if (boolSize == 0) {
+			*(boolArr + size) = 0;
+		}
 
+		*(boolArr + size) |= (static_cast<unsigned char>(value) << boolSize);
+
+		++boolSize;
+		if (boolSize == 8)
+		{
+			size++;
+			boolSize = 0;
+		}
 	}
 
 	void remove(const bool& value)
 	{
-
+		// 이건 그냥 맨 뒤에 있는 놈들 추가..?
 	}
 
 	void insert(const bool& findValue, const bool& value)
@@ -221,7 +235,11 @@ public:
 
 	void printAllData()
 	{
-		
+		for (int i = 0; i < size * 8; i++)
+		{
+			// 한 비트 씩 가져와서 1이면 true 출력, 0이면 false 출력하기
+
+		}
 	}
 };
 
