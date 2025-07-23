@@ -25,7 +25,6 @@ int main()
 	Person p3("Doom", 1);
 	Person p4("Bradley", 5);
 
-
 	DynamicArray<Person> p;
 
 	p.add(p1);

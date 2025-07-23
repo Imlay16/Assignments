@@ -202,27 +202,44 @@ public:
 		if (size == capacity)
 		{
 			reAllocate();
-		}		
+		}
+
+		if (boolSize == 0) {
+			*(arr + size) = 0;
+		}
+
+		*(arr + size) |= (static_cast<unsigned char>(value) << boolSize);
+
+		++boolSize;
+		if (boolSize == 8)
+		{
+			size++;
+			boolSize = 0;
+		}
+	}
+
+	bool getIndex(int index)
+	{
+
+	}
+
+	void set(int index, const bool& value)
+	{
+
 	}
 
 	void remove(const bool& value)
 	{
-
-	}
-
-	void insert(const bool& findValue, const bool& value)
-	{
-
-	}
-
-	int find(const bool& value)
-	{
-		
+		// 이건 그냥 맨 뒤에 있는 놈들 삭제..?
 	}
 
 	void printAllData()
 	{
-		
+		for (int i = 0; i < size * 8; i++)
+		{
+			// 한 비트 씩 가져와서 1이면 true 출력, 0이면 false 출력하기
+
+		}
 	}
 };
 
