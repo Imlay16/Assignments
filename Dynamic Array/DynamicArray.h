@@ -160,7 +160,7 @@ template<>
 class DynamicArray<bool>
 {
 private:
-	size_t size = 0;
+	size_t size = 1;
 	size_t boolSize = 0;
 	size_t capacity = 1;
 
@@ -218,27 +218,33 @@ public:
 		}
 	}
 
-	bool getIndex(int index)
+	void printBits(int byteIndex, int numBits)
 	{
-
-	}
-
-	void set(int index, const bool& value)
-	{
-
-	}
-
-	void remove(const bool& value)
-	{
-		// 이건 그냥 맨 뒤에 있는 놈들 삭제..?
+		for (int j = 0; j < numBits; j++)
+		{
+			if (*(arr + size + byteIndex) & (1 << j))
+			{
+				cout << "True ";
+			}
+			else
+			{
+				cout << "False ";
+			}
+		}
 	}
 
 	void printAllData()
 	{
-		for (int i = 0; i < size * 8; i++)
+		for (int i = 0; i < size; i++)
 		{
-			// 한 비트 씩 가져와서 1이면 true 출력, 0이면 false 출력하기
-
+			if (i == size - 1)
+			{
+				printBits(i, boolSize);
+			}
+			else
+			{
+				printBits(i, 8);
+			}
 		}
 	}
 };

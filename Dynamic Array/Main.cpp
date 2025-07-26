@@ -38,5 +38,17 @@ int main()
 
 	cout << result << endl;
 
+
+	DynamicArray<bool> boolArr;
+
+	boolArr.add(true);
+	boolArr.add(false);
+	boolArr.add(true);
+	boolArr.add(false);
+	boolArr.add(true);
+	boolArr.add(false);
+
+	boolArr.printAllData();
+
 	return 0;
 }
