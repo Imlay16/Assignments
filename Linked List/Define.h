@@ -1,16 +1,14 @@
 #pragma once
 
-template<typename T>
-struct SignlyNode
+struct SinglyNode
 {
-	T data;
+	int data;
 	SinglyNode* next = nullptr;
 };
 
-template<typename T>
 struct DoublyNode
 {
-	T data;
+	int data;
 	DoublyNode* prev = nullptr;
 	DoublyNode* next = nullptr;
 };

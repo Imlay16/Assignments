@@ -2,8 +2,19 @@
 //
 
 #include <iostream>
+#include "SinglyLinkedList.h"
 
 int main()
 {
-	
+	SinglyLinkedList list;
+
+	list.Add(1);
+	list.Add(2);
+	list.Add(3);
+	list.Add(4);
+	list.Add(5);
+
+	list.PrintAllData();
+
+	list.Remove(3);
 }
