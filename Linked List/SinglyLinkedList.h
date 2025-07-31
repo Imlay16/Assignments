@@ -127,9 +127,20 @@ public:
 		return nullptr;
 	}
 
+	bool IsEmpty()
+	{
+		return pHead == nullptr;
+	}
+
 	void PrintAllData()
 	{	
 		SinglyNode* current = pHead;
+
+		//if (IsEmpty())
+		//{
+		//	cout << "Empty!" << endl;
+		//	return;
+		//}
 
 		if (current == nullptr)
 		{
