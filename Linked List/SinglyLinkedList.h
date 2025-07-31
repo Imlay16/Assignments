@@ -8,87 +8,160 @@ class SinglyLinkedList
 {
 private:
 	SinglyNode* pHead = nullptr;
+	SinglyNode* pTail = nullptr;
 
 public:
 	SinglyLinkedList() { }
 
 	~SinglyLinkedList()
 	{
-		delete pHead;
+		SinglyNode* current = pHead;
+		SinglyNode* prev = nullptr;
+
+		while (current != nullptr)
+		{
+			prev = current;
+			current = current->next;			
+			delete prev;
+		}
 	}
 
 	void Add(int data)
 	{
+		// 노드가 없을 때,
 		if (pHead == nullptr)
 		{
-			// 처음 노드일 때
-			SinglyNode* pData = new SinglyNode{ data, nullptr };
-			pHead = pData;
+			SinglyNode* newNode = new SinglyNode{ data, nullptr };
+			pHead = newNode;
+			pTail = newNode;
 		}
 		else
-		{
-			// 이미 다른 노드들이 있을 때,
-			SinglyNode* pData = new SinglyNode{ data, nullptr };
-			
-			SinglyNode* temp = pHead;
+		{			
+			SinglyNode* newNode = new SinglyNode{ data, nullptr };
 
-			while (temp->next != nullptr)
+			if (pTail != nullptr)
 			{
-				temp = temp->next;				
+				pTail->next = newNode;
 			}
+			pTail = newNode;
+		}
+	}
 
-			temp->next = pData;			
+	// data를 찾고 뒤에 새로운 노드 삽입, 없으면 아무것도 안함
+	void Insert(int findData, int newData)
+	{
+		SinglyNode* current = pHead;
+
+		while (current != nullptr)
+		{
+			if (current->data == findData)
+			{
+				SinglyNode* newNode = new SinglyNode{ newData, nullptr };
+
+				if (current == pTail) {  // 마지막 노드 뒤에 삽입
+					current->next = newNode;
+					pTail = newNode;
+				}
+				else {  // 중간이나 head 뒤에 삽입 
+					newNode->next = current->next;
+					current->next = newNode;
+				}
+
+				return;
+			}
+			current = current->next;
 		}
 	}
 
 	void Remove(int data)
 	{
-		SinglyNode* temp = pHead;
+		SinglyNode* current = pHead;
+		SinglyNode* prev = nullptr;
 
-		while (temp != nullptr)
+		while (current != nullptr)
 		{
-			if (temp->data == data)
+			if (current->data == data)
 			{
-				delete temp;
-				temp = nullptr;
-
-				// 뒷놈이랑 연결해줘야함!!!
+				if (pHead == pTail) // 개수가 1개인 경우
+				{
+					delete pHead;
+					pHead = pTail = nullptr;
+				}
+				else if (current == pHead) // 헤드 삭제
+				{
+					pHead = current->next;
+					delete current;
+				}
+				else if (current == pTail) // 테일 삭제
+				{
+					pTail = prev;
+					prev->next = nullptr;
+					delete current;
+				}
+				else // 중간 삭제
+				{
+					prev->next = current->next;
+					delete current;
+				}
+				return;
 			}
-			temp = temp->next;
+
+			prev = current;
+			current = current->next;
 		}
 	}
 
 	SinglyNode* Find(int data)
 	{
-		SinglyNode* temp = pHead;
+		SinglyNode* current = pHead;
 
-		while (temp != nullptr)
+		while (current != nullptr)
 		{
-			if (temp->data == data)
+			if (current->data == data)
 			{
-				return temp;
+				return current;
 			}
-			temp = temp->next;
+			current = current->next;
 		}
 
 		return nullptr;
-
-		// 근데 이렇게 포인터를 반환하면, 밖에서 CONTROL 가능하지 않나?
 	}
 
 	void PrintAllData()
-	{
-		SinglyNode* temp = pHead;
-		while (temp != nullptr)
+	{	
+		SinglyNode* current = pHead;
+
+		if (current == nullptr)
 		{
-			cout << temp->data << " ";
-			temp = temp->next;
+			cout << "Empty!" << endl;
+			return;
 		}
+
+		while (current != nullptr)
+		{
+			cout << current->data << " ";
+			current = current->next;
+		}
+		cout << endl;
 	}
 	
 	// 요소 뒤집기
 	void Reverse()
 	{
-		
+		SinglyNode* prev = nullptr;
+		SinglyNode* current = pHead;
+		SinglyNode* next = nullptr;
+		pTail = current;
+
+		while (current != nullptr)
+		{
+			next = current->next;
+			current->next = prev;
+
+			prev = current;
+			current = next;	
+		}		
+
+		pHead = prev;
 	}
 };
