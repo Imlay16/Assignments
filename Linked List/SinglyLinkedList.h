@@ -1,6 +1,5 @@
 #pragma once
 #include "Define.h"
-#include <iostream>
 
 using namespace std;
 
@@ -9,6 +8,22 @@ class SinglyLinkedList
 private:
 	SinglyNode* pHead = nullptr;
 	SinglyNode* pTail = nullptr;
+
+	SinglyNode* Find(int data)
+	{
+		SinglyNode* current = pHead;
+
+		while (current != nullptr)
+		{
+			if (current->data == data)
+			{
+				return current;
+			}
+			current = current->next;
+		}
+
+		return nullptr;
+	}
 
 public:
 	SinglyLinkedList() { }
@@ -24,25 +39,23 @@ public:
 			current = current->next;			
 			delete prev;
 		}
+
+		pHead = pTail = nullptr;
 	}
 
 	void Add(int data)
 	{
+		SinglyNode* newNode = new SinglyNode{ data, nullptr };
+
 		// 노드가 없을 때,
 		if (pHead == nullptr)
 		{
-			SinglyNode* newNode = new SinglyNode{ data, nullptr };
 			pHead = newNode;
 			pTail = newNode;
 		}
 		else
 		{			
-			SinglyNode* newNode = new SinglyNode{ data, nullptr };
-
-			if (pTail != nullptr)
-			{
-				pTail->next = newNode;
-			}
+			pTail->next = newNode;
 			pTail = newNode;
 		}
 	}
@@ -50,26 +63,19 @@ public:
 	// data를 찾고 뒤에 새로운 노드 삽입, 없으면 아무것도 안함
 	void Insert(int findData, int newData)
 	{
-		SinglyNode* current = pHead;
+		SinglyNode* findNode = Find(findData);
 
-		while (current != nullptr)
-		{
-			if (current->data == findData)
-			{
-				SinglyNode* newNode = new SinglyNode{ newData, nullptr };
+		if (findNode == nullptr) return;
 
-				if (current == pTail) {  // 마지막 노드 뒤에 삽입
-					current->next = newNode;
-					pTail = newNode;
-				}
-				else {  // 중간이나 head 뒤에 삽입 
-					newNode->next = current->next;
-					current->next = newNode;
-				}
+		SinglyNode* newNode = new SinglyNode{ newData, nullptr };
 
-				return;
-			}
-			current = current->next;
+		if (findNode == pTail) {  // 마지막 노드 뒤에 삽입
+			findNode->next = newNode;
+			pTail = newNode;
+		}
+		else {  // 중간이나 head 뒤에 삽입 
+			newNode->next = findNode->next;
+			findNode->next = newNode;
 		}
 	}
 
@@ -109,22 +115,6 @@ public:
 			prev = current;
 			current = current->next;
 		}
-	}
-
-	SinglyNode* Find(int data)
-	{
-		SinglyNode* current = pHead;
-
-		while (current != nullptr)
-		{
-			if (current->data == data)
-			{
-				return current;
-			}
-			current = current->next;
-		}
-
-		return nullptr;
 	}
 
 	bool IsEmpty()

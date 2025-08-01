@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 struct SinglyNode
 {
@@ -8,7 +9,7 @@ struct SinglyNode
 
 struct DoublyNode
 {
-	int data;
 	DoublyNode* prev = nullptr;
+	int data;	
 	DoublyNode* next = nullptr;
 };
