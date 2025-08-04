@@ -1,4 +1,7 @@
 #pragma once
+#include <iostream>
+
+using namespace std;
 
 struct TreeNode 
 {
@@ -12,25 +15,65 @@ class BinaryTree
 private:
 	TreeNode* root = nullptr;
 
-	TreeNode* Find(int data)
+	TreeNode* Find(TreeNode* node, int data)
 	{
+		if (node == nullptr) return nullptr;
 
+		if (node->data == data)
+			return node;
+
+		Find(node->left, data);
+		Find(node->right, data);
+
+		return nullptr;
 	}
 
-	void AddRecursive(TreeNode* node, int data)
+	TreeNode* AddRecursive(TreeNode* node, int data)
 	{
-		// 탈출 조건
-		// 자식 노드가 하나도 없을 때
-		if (node->left == nullptr && node->right == nullptr) return;
+		if (node->data >= data && node->left == nullptr) return node;
 
+		if (node->data < data && node->right == nullptr) return node;
 
+		if (node->data >= data) return AddRecursive(node->left, data);
+		else return AddRecursive(node->right, data);
+	}
+
+	void PreOrderRecursive(TreeNode* node)
+	{
+		if (node == nullptr) return;
+
+		cout << node->data << " ";
+		PreOrderRecursive(node->left);
+		PreOrderRecursive(node->right);
+	}
+
+	void InOrderRecursive(TreeNode* node)
+	{
+		if (node == nullptr) return;
+
+		InOrderRecursive(node->left);
+		cout << node->data << " ";
+		InOrderRecursive(node->right);
+	}
+
+	void PostOrderRecursive(TreeNode* node)
+	{
+		if (node == nullptr) return;
+
+		PostOrderRecursive(node->left);
+		PostOrderRecursive(node->right);
+		cout << node->data << " ";
 	}
 
 public:
 	BinaryTree() { }
 	~BinaryTree()
 	{
-
+		// 순회하면서 삭제
+		// 마지막엔 루트노드 삭제?
+		
+		
+		delete root;
 	}
 	
 	// 재귀로 구현
@@ -42,7 +85,16 @@ public:
 		}
 		else
 		{
-			AddRecursive(root, data);
+			TreeNode* leafNode = AddRecursive(root, data);
+			
+			if (leafNode->data >= data)
+			{
+				leafNode->left = new TreeNode{ data, nullptr, nullptr };
+			}
+			else if (leafNode->data < data)
+			{
+				leafNode->right = new TreeNode{ data, nullptr, nullptr };
+			}
 		}
 	}
 
@@ -52,22 +104,38 @@ public:
 		// 1. 자식이 없는 경우
 		// 2. 자식이 하나 있는 경우
 		// 3. 자식이 둘인 경우	
-				
+		
+
+	}
+
+	bool Contains(int data)
+	{
+		if (Find(root, data) != nullptr)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	// 순회
 	void PreOrder()
 	{
-
+		PreOrderRecursive(root);
+		cout << endl;
 	}
 
 	void InOrder()
 	{
-
+		InOrderRecursive(root);
+		cout << endl;
 	}
 
 	void PostOrder()
 	{
-
+		PostOrderRecursive(root);
+		cout << endl;
 	}
 };
