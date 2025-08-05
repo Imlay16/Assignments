@@ -42,6 +42,13 @@ private:
 		else return AddRecursive(node->right, data);
 	}
 
+	TreeNode* RemoveRecursive(TreeNode* node, int data)
+	{
+		if (node == nullptr) return nullptr;
+
+
+	}
+
 	void PreOrderRecursive(TreeNode* node)
 	{
 		if (node == nullptr) return;
@@ -113,12 +120,7 @@ public:
 
 	void Remove(int data)
 	{
-		// 삭제될 때,
-		// 1. 자식이 없는 경우
-		// 2. 자식이 하나 있는 경우
-		// 3. 자식이 둘인 경우	
-		
-		
+
 	}
 
 	bool Contains(int data)
