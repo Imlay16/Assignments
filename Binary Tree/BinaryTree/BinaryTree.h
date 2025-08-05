@@ -22,10 +22,14 @@ private:
 		if (node->data == data)
 			return node;
 
-		Find(node->left, data);
-		Find(node->right, data);
-
-		return nullptr;
+		if (node->data > data)
+		{
+			return Find(node->left, data);
+		}
+		else
+		{
+			return Find(node->right, data);
+		}
 	}
 
 	TreeNode* AddRecursive(TreeNode* node, int data)
@@ -65,15 +69,24 @@ private:
 		cout << node->data << " ";
 	}
 
+	void ClearNode(TreeNode* node)
+	{
+		if (node == nullptr) return;
+
+		ClearNode(node->left);
+		ClearNode(node->right);
+
+		delete node;
+	}
+
 public:
 	BinaryTree() { }
 	~BinaryTree()
 	{
 		// 순회하면서 삭제
-		// 마지막엔 루트노드 삭제?
-		
-		
-		delete root;
+		// Left - Right - Root 순서로 delete 해야함. PostOrder.
+		ClearNode(root);
+		root = nullptr;
 	}
 	
 	// 재귀로 구현
@@ -105,7 +118,7 @@ public:
 		// 2. 자식이 하나 있는 경우
 		// 3. 자식이 둘인 경우	
 		
-
+		
 	}
 
 	bool Contains(int data)
