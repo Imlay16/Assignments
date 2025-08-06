@@ -11,3 +11,4 @@ Release/
 *.tmp
 Thumbs.db
 .DS_Store 
+obj/ 
