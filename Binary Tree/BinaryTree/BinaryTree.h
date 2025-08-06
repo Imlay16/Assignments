@@ -49,19 +49,52 @@ private:
 		if (node->data == data)
 		{
 			// 삭제 로직 + 서브 트리 로직
-
 			
+			// 자식이 없는 경우
+			if (node->left == nullptr && node->right == nullptr)
+			{
+				// 그냥 삭제
+				delete node;
+				return nullptr;
+			}
+			// 자식이 하나인 경우
+			else if ((node->left != nullptr) || (node->right != nullptr))
+			{
+				// 부모와 자식을 바꿔야함.
+				TreeNode* child;
+				if (node->left != nullptr)
+				{
+					child = node->left;
+				}
+				else
+				{
+					child = node->right;
+				}
+
+				delete node;
+				return child;
+			}			
+
+			// 자식이 둘인 경우
+			else if (node->left != nullptr && node->right != nullptr)
+			{
+				
+
+
+			}
 		}
 
 		if (node->data > data)
 		{
 			// 리턴값? = RemoveRecursive(node->left, data);
-			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴.
+			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴
+			node->left = RemoveRecursive(node->left, data);
 		}
 		else
 		{
 			// 리턴값? = RemoveRecursive(node->right, data);
-			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴.
+			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴
+			node->right = RemoveRecursive(node->right, data);			
 		}
 	}
 
