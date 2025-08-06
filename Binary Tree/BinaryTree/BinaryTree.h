@@ -46,7 +46,23 @@ private:
 	{
 		if (node == nullptr) return nullptr;
 
+		if (node->data == data)
+		{
+			// 삭제 로직 + 서브 트리 로직
 
+			
+		}
+
+		if (node->data > data)
+		{
+			// 리턴값? = RemoveRecursive(node->left, data);
+			// 
+		}
+		else
+		{
+			// 리턴값? = RemoveRecursive(node->right, data);
+			//
+		}
 	}
 
 	void PreOrderRecursive(TreeNode* node)
@@ -120,6 +136,17 @@ public:
 
 	void Remove(int data)
 	{
+		TreeNode* removeNode = RemoveRecursive(root, data);
+
+		if (removeNode == nullptr)
+		{
+			return;
+		}
+		else
+		{
+			
+		}
+
 
 	}
 
