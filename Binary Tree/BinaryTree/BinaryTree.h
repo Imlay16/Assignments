@@ -56,12 +56,12 @@ private:
 		if (node->data > data)
 		{
 			// 리턴값? = RemoveRecursive(node->left, data);
-			// 
+			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴.
 		}
 		else
 		{
 			// 리턴값? = RemoveRecursive(node->right, data);
-			//
+			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴.
 		}
 	}
 
