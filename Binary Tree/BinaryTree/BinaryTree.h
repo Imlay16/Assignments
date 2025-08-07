@@ -48,7 +48,9 @@ private:
 
 		if (node->data == data)
 		{
-			// 삭제 로직 + 서브 트리 로직
+			// 루트 삭제하는 경우도 고려해야함..!
+
+			// 삭제 로직 + 서브 트리 로직 
 			
 			// 자식이 없는 경우
 			if (node->left == nullptr && node->right == nullptr)
@@ -78,7 +80,8 @@ private:
 			// 자식이 둘인 경우
 			else if (node->left != nullptr && node->right != nullptr)
 			{
-				
+				// 왼쪽 서브 트리의 최댓값 OR 오른쪽 서브 트리의 최솟값.
+				// 어떤 값을 리턴할지 정해야함.
 
 
 			}
