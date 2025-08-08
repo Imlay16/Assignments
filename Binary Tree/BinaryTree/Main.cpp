@@ -34,4 +34,7 @@ int main()
     {
         cout << "Not Contained" << endl;
     }
+
+    tree.Remove(5);
+    tree.PreOrder();
 }

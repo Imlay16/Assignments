@@ -32,15 +32,31 @@ private:
 		}
 	}
 
+	TreeNode* FindMin(TreeNode* node)
+	{
+		if (node == nullptr) return nullptr;
+
+		if (node->left == nullptr) return node;
+
+		return FindMin(node->left);
+	}
+
 	TreeNode* AddRecursive(TreeNode* node, int data)
 	{
-		if (node->data >= data && node->left == nullptr) return node;
+		if (node == nullptr) return new TreeNode{ data, nullptr, nullptr };
 
-		if (node->data < data && node->right == nullptr) return node;
+		if (node->data > data)
+		{
+			node->left = AddRecursive(node->left, data);
+		}
 
-		if (node->data >= data) return AddRecursive(node->left, data);
-		else return AddRecursive(node->right, data);
-	}
+		if (node->data < data)
+		{
+			node->right = AddRecursive(node->right, data);
+		}
+		
+		return node;
+	}	
 
 	TreeNode* RemoveRecursive(TreeNode* node, int data)
 	{
@@ -48,8 +64,6 @@ private:
 
 		if (node->data == data)
 		{
-			// 루트 삭제하는 경우도 고려해야함..!
-
 			// 삭제 로직 + 서브 트리 로직 
 			
 			// 자식이 없는 경우
@@ -60,7 +74,7 @@ private:
 				return nullptr;
 			}
 			// 자식이 하나인 경우
-			else if ((node->left != nullptr) || (node->right != nullptr))
+			else if ((node->left == nullptr) != (node->right == nullptr))
 			{
 				// 부모와 자식을 바꿔야함.
 				TreeNode* child;
@@ -82,8 +96,13 @@ private:
 			{
 				// 왼쪽 서브 트리의 최댓값 OR 오른쪽 서브 트리의 최솟값.
 				// 어떤 값을 리턴할지 정해야함.
+				
+				// 오른쪽 서브 트리의 최솟값 찾기
+				TreeNode* successor = FindMin(node->right);
+				node->data = successor->data;
 
-
+				node->right = RemoveRecursive(node->right, successor->data);
+				return node;
 			}
 		}
 
@@ -99,6 +118,8 @@ private:
 			// 리턴이 되면 둘 중 하나. nullptr or 삭제할 node가 리턴
 			node->right = RemoveRecursive(node->right, data);			
 		}
+
+		return node;
 	}
 
 	void PreOrderRecursive(TreeNode* node)
@@ -151,39 +172,12 @@ public:
 	// 재귀로 구현
 	void Add(int data)
 	{
-		if (root == nullptr)
-		{
-			root = new TreeNode{ data, nullptr, nullptr };
-		}
-		else
-		{
-			TreeNode* leafNode = AddRecursive(root, data);
-			
-			if (leafNode->data >= data)
-			{
-				leafNode->left = new TreeNode{ data, nullptr, nullptr };
-			}
-			else if (leafNode->data < data)
-			{
-				leafNode->right = new TreeNode{ data, nullptr, nullptr };
-			}
-		}
+		root = AddRecursive(root, data);
 	}
 
 	void Remove(int data)
 	{
-		TreeNode* removeNode = RemoveRecursive(root, data);
-
-		if (removeNode == nullptr)
-		{
-			return;
-		}
-		else
-		{
-			
-		}
-
-
+		root = RemoveRecursive(root, data);
 	}
 
 	bool Contains(int data)
